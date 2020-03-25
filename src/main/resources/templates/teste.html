@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Sistema Acadêmico</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+	<div th:replace="fragmentos/layout :: cabecalho"></div>
+	
+	<div class="container" style="min-height:550px;margin-top:20px">
+		<span th:text="'Mensagem vinda do servidor: ' + ${mensagem}"></span>
+		<input type="text" class="form-control" style="margin-top:10px"/>
+	</div>
+	
+	<div th:replace="fragmentos/layout :: rodape"></div>
+	
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
