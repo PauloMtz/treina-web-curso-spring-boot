@@ -68,6 +68,24 @@
 			<version>4.3.1</version>
 		</dependency>
 		<!-- Fim dos imports WEBJARS para Bootstrap e jQuery -->
+
+		<!-- JPA / MYSQL -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Fim dos imports JPA / MYSQL -->
 		
 	</dependencies>
 
