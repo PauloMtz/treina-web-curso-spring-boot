@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Sistema Acadêmico</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+	<div th:replace="fragmentos/layout :: cabecalho"></div>
+	
+	<!-- CONTENT -->
+	<div class="container" style="min-height:550px;margin-top:20px">
+		<h2>Lista de instituições</h2><hr/>
+		<a href="/instituicoes/inserir" class="btn btn-link" style="margin-bottom:20px">Adicionar instituição</a>
+		<table class="table table-striped">
+			<thead>
+				<th>Instituição</th>
+				<th>Endereço</th>
+				<th colspan="2">Ações</th>
+			</thead>
+			<tbody><!-- 'instituicoes' vem do controller -->
+				<tr th:each="instituicao : ${instituicoes}">
+					<td th:text="${instituicao.nome}"></td>
+					<td th:text="${instituicao.endereco}"></td>
+								<!-- @{/controller/action/{campo}(campo=${variavel.campo})} -->
+					<td><a th:href="@{/instituicoes/editar/{id}(id=${instituicao.id})}">Editar</a></td>
+					<td><a th:href="@{/instituicoes/excluir/{id}(id=${instituicao.id})}">Excluir</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div th:replace="fragmentos/layout :: rodape"></div>
+	
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
