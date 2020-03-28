@@ -12,11 +12,15 @@
 	<!-- CONTENT -->
 	<div class="container" style="min-height:550px">
 	
-		<h2 style="margin-top:20px">Adicionar instituição</h2><hr/>
+		<h2 style="margin-top:20px">Alterar dados</h2><hr/>
 		
-		<form class="form-horizontal" action="/instituicoes/inserir"
-			method="post" th:object="${inserirInstituicao}" style="margin-top:20px">
-			<!-- inserirInstituicao vem do controller -->
+		<form class="form-horizontal" action="/instituicoes/editar"
+			method="post" th:object="${editarInstituicao}" style="margin-top:20px">
+			<!-- editarInstituicao vem do controller -->
+			
+			<!-- envia o id para o servidor -->
+			<!-- com relação à página de inserção, esta é a única alteração -->
+			<input type="hidden" th:field="*{id}"/>
 
 			<div class="row">
 				<div class="form-group col-md-6">
