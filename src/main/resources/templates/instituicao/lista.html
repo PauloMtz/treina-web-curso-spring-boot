@@ -12,8 +12,21 @@
 	<!-- CONTENT -->
 	<div class="container" style="min-height:550px;margin-top:20px">
 		<h2>Lista de instituições</h2><hr/>
-		<a href="/instituicoes/inserir" class="btn btn-link" style="margin-bottom:20px">Adicionar instituição</a>
-		<table class="table table-striped">
+		<div class="row">
+			<div class="form-group col-md-5">
+				<label for="txt-pesquisa">Buscar instituição</label>
+				<input type="text" id="txt-pesquisa" class="form-control" />
+			</div>
+			<div class="form-group col-md-2">
+				<button type="button" class="btn btn-default" id="btn-pesquisar" 
+					style="border:solid 1px #ccc;width:150px;margin-top:30px">Pesquisar</button>
+			</div>
+			<div class="form-group col-md-5">
+				<a href="/instituicoes/inserir" class="btn btn-default" 
+					style="margin-bottom:20px;border:solid 1px #ccc;width:240px;float:right;margin-top:30px">Adicionar instituição</a>
+			</div>
+		</div>
+		<table class="table table-striped" id="tbl-instituicao">
 			<thead>
 				<th>Instituição</th>
 				<th>Endereço</th>
@@ -36,5 +49,39 @@
 	
 	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	
+	<!-- AJAX para pesquisar instituição por nome -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			// seleciona o botão pesquisar no evento de clique
+			$('#btn-pesquisar').click(function() {
+				// dispara requisição Ajax
+				$.ajax({
+					method: 'GET', // falou que 'inputs' possuem valor [.val()] e labels possuem text
+					url: '/instituicoes//pesquisar_instituicao/' + $('#txt-pesquisa').val(),
+					// chama os callbacks de sucesso ou erro
+					success: function(data) {
+						// pega a tabela apenas tbody e linhas tr filhas e limpa
+						$('#tbl-instituicao tbody > tr').remove();
+						$.each(data, function() {
+							// pega o tbody e remonta os elementos
+							$('#tbl-instituicao tbody').append(
+								'<tr>' +
+								'	<td>' + this.nome + '</td>' +
+								'	<td>' + this.endereco + '</td>' +
+								'	<td><a href="/instituicoes/editar/' + this.id + '">Editar</a></td>' +
+								'	<td><a href="/instituicoes/excluir/' + this.id + '">Excluir</a></td>' +
+								'</tr>'
+							);
+						});
+					},
+					error: function() {
+						alert('Não foi possível realizar a pesquisa');
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>
