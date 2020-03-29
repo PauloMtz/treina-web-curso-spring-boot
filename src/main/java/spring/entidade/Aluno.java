@@ -1,33 +1,27 @@
 package spring.entidade;
 
-import java.util.Set;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "instituicoes")
-public class Instituicao {
+@Table(name="alunos")
+public class Aluno {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 30)
 	private String nome;
+	private String email;
 	
-	@Column(length = 100)
-	private String endereco;
-	
-	// o Set<> não permite elementos duplicados
-	// por isso, foi utilizado ao invés de lista
-	@OneToMany(mappedBy = "instituicao")
-	private Set<Aluno> alunos;
+	// uma instituição tem muitos alunos,
+	// mas um aluno só tem uma instituição
+	@ManyToOne
+	private Instituicao instituicao;
 
 	public Long getId() {
 		return id;
@@ -45,11 +39,19 @@ public class Instituicao {
 		this.nome = nome;
 	}
 
-	public String getEndereco() {
-		return endereco;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Instituicao getInstituicao() {
+		return instituicao;
+	}
+
+	public void setInstituicao(Instituicao instituicao) {
+		this.instituicao = instituicao;
 	}
 }
