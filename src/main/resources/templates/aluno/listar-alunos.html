@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Sistema Acadêmico</title>
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+	<!-- HEADER -->
+	<div th:replace="fragmentos/layout :: cabecalho"></div>
+	
+	<!-- CONTENT -->
+	<div class="container" style="min-height:550px;margin-top:20px">
+		<h2>Lista de alunos</h2><hr/>
+		<div class="row">
+			<div class="form-group col-md-5">
+				<label for="txt-pesquisa">Buscar aluno</label>
+				<input type="text" id="txt-pesquisa" class="form-control" />
+			</div>
+			<div class="form-group col-md-2">
+				<button type="button" class="btn btn-default" id="btn-pesquisar" 
+					style="border:solid 1px #ccc;width:150px;margin-top:30px">Pesquisar</button>
+			</div>
+			<div class="form-group col-md-5">
+				<a href="/alunos/inserir" class="btn btn-default" 
+					style="margin-bottom:20px;border:solid 1px #ccc;width:240px;float:right;margin-top:30px">Novo aluno</a>
+			</div>
+		</div>
+		<table class="table table-striped" id="tbl-alunos">
+			<thead>
+				<th>Aluno</th>
+				<th>E-mail</th>
+				<th>Instituição</th>
+				<th colspan="2">Ações</th>
+			</thead>
+			<tbody><!-- 'alunosView' vem do controller/listar -->
+				<tr th:each="aluno : ${alunosView}">
+					<td th:text="${aluno.nome}"></td>
+					<td th:text="${aluno.email}"></td>
+					<td th:text="${aluno.instituicao.nome}"></td>
+							<!-- @{/controller/action/{campo}(campo=${variavel.campo})} -->
+					<td><a th:href="@{/alunos/editar/{id}(id=${aluno.id})}">Editar</a></td>
+					<td><a th:href="@{/alunos/excluir/{id}(id=${aluno.id})}">Excluir</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<!-- FOOTER -->
+	<div th:replace="fragmentos/layout :: rodape"></div>
+	
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	
+</body>
+</html>
