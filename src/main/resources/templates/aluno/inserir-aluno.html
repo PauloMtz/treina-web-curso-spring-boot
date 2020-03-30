@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Sistema Acadêmico</title>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+	<!-- HEADER -->
+	<div th:replace="fragmentos/layout :: cabecalho"></div>
+
+	<!-- CONTENT -->
+	<div class="container" style="min-height:550px">
+	
+		<h2 style="margin-top:20px">Adicionar aluno</h2><hr/>
+		
+		<form class="form-horizontal" action="/alunos/inserir"
+			method="post" th:object="${inserirAluno}" style="margin-top:20px">
+			<!-- inserirAluno vem do controller -->
+
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-nome">Nome</label> 
+					<input type="text" class="form-control" id="txt-nome" th:field="*{nome}"/>
+					<!-- esse th-field com o atributo nome é o mesmo atributo da classe de domínio -->
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="txt-email">E-mail</label> 
+					<input type="text" class="form-control" id="txt_email" th:field="*{email}" />
+					<!-- esse th-field com o atributo endereco é o mesmo atributo da classe de domínio -->
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label for="slt-instituicao">Instituição</label> 
+					<select class="form-control" th:field="*{instituicao.id}">
+						<option th:value="0" th:text="Selecione"></option>
+						<option th:each="instituicao : ${instituicoesView}" 
+							th:value="${instituicao.id}" th:text="${instituicao.nome}"></option>
+							<!-- instituicoesView vem do controller 'inserir' -->
+					</select>
+				</div>
+			</div>
+
+			<div class="row">
+				<input type="submit" value="Salvar" class="btn btn-primary"
+					style="width:150px; margin-left:15px; margin-bottom:20px;margin-top:20px" />
+				<a href="/alunos/listar" class="btn btn-default" 
+					style="width:150px; margin-left:15px; margin-bottom:20px;margin-top:20px;border:solid 1px #ccc">Voltar</a>
+			</div>
+		</form>
+	</div>
+
+	<!-- FOOTER -->
+	<div th:replace="fragmentos/layout :: rodape"></div>
+
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

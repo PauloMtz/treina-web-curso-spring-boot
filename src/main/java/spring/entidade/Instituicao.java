@@ -23,7 +23,7 @@ public class Instituicao {
 	
 	@Column(length = 100)
 	private String endereco;
-	
+
 	// o Set<> não permite elementos duplicados
 	// por isso, foi utilizado ao invés de lista
 	@OneToMany(mappedBy = "instituicao")
@@ -51,5 +51,13 @@ public class Instituicao {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+	
+	public Set<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(Set<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 }
