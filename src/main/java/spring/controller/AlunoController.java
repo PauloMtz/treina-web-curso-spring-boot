@@ -3,6 +3,7 @@ package spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,7 +53,40 @@ public class AlunoController {
 	@PostMapping("/inserir")
 	public String inserir(Aluno aluno) {
 		repositorio.save(aluno);
-		// instituicoes/listar => controller/action
+		// alunos/listar => controller/action
+		return "redirect:/alunos/listar";
+	}
+	
+	// -----------------------------------------------------------------------------
+	// 						** EDITAR
+	// -----------------------------------------------------------------------------
+	
+	// carrega página para edição
+	@GetMapping("/editar/{id}")
+	public ModelAndView editar(@PathVariable Long id) {
+		Aluno aluno = repositorio.findById(id).orElse(null);
+		ModelAndView model = new ModelAndView("aluno/editar-aluno");
+		model.addObject("editarAluno", aluno);
+		model.addObject("instituicoesAdd", instRepositorio.findAll());
+		return model;
+	}
+	
+	// salva os dados quando o formulário for submetido
+	@PostMapping("/editar")
+	public String editar(Aluno aluno) {
+		repositorio.save(aluno);
+		// alunos/listar => controller/action
+		return "redirect:/alunos/listar";
+	}
+	
+	// -----------------------------------------------------------------------------
+	// 						** EXCLUIR
+	// -----------------------------------------------------------------------------
+	
+	@GetMapping("/excluir/{id}")
+	public String excluir(@PathVariable Long id) {
+		repositorio.deleteById(id);
+		// alunos/listar => controller/action
 		return "redirect:/alunos/listar";
 	}
 }
